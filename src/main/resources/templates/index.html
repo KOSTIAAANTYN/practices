@@ -5,11 +5,22 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Test</h1>
+<h1>Сторінка з товарами</h1>
 <div th:each="product :${productList}">
     <span th:text="${product.title}">|</span>
     <span th:text="${product.price}"></span><b> грн.</b>
-    <a th:href="@{/product/${product.id}}">Детальніше...</a>
+    <a th:href="@{/product/{id}(id=${product.id})}">Детальніше...</a>
 </div>
+<br><hr>
+
+<form th:action="@{/product/create}" method="post">
+    Назва товару:<input type="text" name="title"><br><br>
+    Опис товару:<input type="text" name="description"><br><br>
+    Ціна товару:<input type="number" name="price"><br><br>
+    Місто товару:<input type="text" name="town"><br><br>
+    Автор товару:<input type="text" name="author"><br><br><br>
+    <input type="submit" value="Додати товар">
+
+</form>
 </body>
 </html>
