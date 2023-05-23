@@ -20,4 +20,9 @@ public class ProductController {
         model.addAttribute("productList", productService.getProductList());
         return "index";
     }
+    @GetMapping("/product/{id}")
+    public String productInfo(Long id,Model model){
+        model.addAttribute("product",productService.getProductById(id));
+        return "product-info";
+    }
 }

@@ -8,7 +8,8 @@
 <h1>Test</h1>
 <div th:each="product :${productList}">
     <span th:text="${product.title}">|</span>
-    <span text="${product.price}"></span><b>грн.</b>
+    <span th:text="${product.price}"></span><b> грн.</b>
+    <a th:href="@{/product/${product.id}}">Детальніше...</a>
 </div>
 </body>
 </html>
