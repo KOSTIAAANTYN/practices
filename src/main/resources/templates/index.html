@@ -5,7 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Сторінка з товарами</h1>
+<h1>Сторінка з товарами</h1><hr>
+<form th:action="@{/}" method="get">
+    Пошук товару по назві: <input type="text" name="title">
+    <input type="submit" value="Пошук">
+</form>
 <div th:each="product :${productList}">
     <span th:text="${product.title}">|</span>
     <span th:text="${product.price}"></span><b> грн.</b>
@@ -13,12 +17,16 @@
 </div>
 <br><hr>
 
-<form th:action="@{/product/create}" method="post">
+<form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
     Назва товару:<input type="text" name="title"><br><br>
     Опис товару:<input type="text" name="description"><br><br>
     Ціна товару:<input type="number" name="price"><br><br>
     Місто товару:<input type="text" name="town"><br><br>
     Автор товару:<input type="text" name="author"><br><br><br>
+    Фото 1:<input type="file" name="file1"><br>
+    Фото 2:<input type="file" name="file2"><br>
+    Фото 3:<input type="file" name="file3"><br>
+
     <input type="submit" value="Додати товар">
 
 </form>
