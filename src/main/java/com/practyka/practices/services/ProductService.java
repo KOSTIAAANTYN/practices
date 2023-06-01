@@ -4,10 +4,13 @@ import com.practyka.practices.model.Image;
 import com.practyka.practices.model.Product;
 import com.practyka.practices.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +31,21 @@ public class ProductService {
         Image image3;
 
         if(file1.getSize()!=0){
-            image1 = toImageEntity(file1);
+            image1=toImageEntity(file1);
+            image1.setPreviewImage(true);
+            product.addImageToProduct(image1);
+        }else {
+            File imageFile=new File("src/main/resources/image_to_product.png");
+            MultipartFile multipartFile=convertToMultipartFile(imageFile);
+            image1=toImageEntity(multipartFile);
             image1.setPreviewImage(true);
             product.addImageToProduct(image1);
         }
-        if(file2.getSize()!=0){
+        if(file2.getSize() != 0){
             image2 = toImageEntity(file2);
             product.addImageToProduct(image2);
         }
-        if(file3.getSize()!=0){
+        if(file3.getSize() != 0){
             image3 = toImageEntity(file3);
             product.addImageToProduct(image3);
         }
@@ -45,6 +54,18 @@ public class ProductService {
         productFromDb.setPreviewImageId(productFromDb.getImages().get(0).getId());
 
         productRepository.save(product);
+    }
+//convert image to Multipart-file
+    private MultipartFile convertToMultipartFile(File imageFile){
+        MockMultipartFile mockMultipartFile;
+        try (FileInputStream input=new FileInputStream(imageFile)){
+            mockMultipartFile=new MockMultipartFile("my_file",
+                    imageFile.getName(),"image/jpeg",input);
+
+        }catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return mockMultipartFile;
     }
 
     private Image toImageEntity(MultipartFile file) {
