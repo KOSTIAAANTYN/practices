@@ -4,11 +4,13 @@ import com.practyka.practices.model.User;
 import com.practyka.practices.model.enums.Role;
 import com.practyka.practices.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    private final PasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
     public boolean createUser(User user){
@@ -16,7 +18,7 @@ public class UserService {
             return false;
         user.setActive(true);
         user.getRoles().add(Role.ROLE_USER);
-        //TODO password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
 
         return true;
