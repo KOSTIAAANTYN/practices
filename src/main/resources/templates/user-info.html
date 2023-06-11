@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Amazoffle:about [[${user.name}]]</title>
+</head>
+<body>
+<h4>Детальна інформація про користувача <i>[[${user.name}]]</i></h4>
+<b>Телефон:</b>[[${user.numberPhone}]]<br>
+<b>Email:</b>[[${user.email}]]<br>
+
+<h4>Детальна інформація про користувача <i>[[${user.name}]]</i></h4>
+
+<div th:if="${products.isEmpty}">
+  <div>Товар відсутній</div>
+</div>
+
+<!--Якщо не відсутній-->
+<div th:each="product :${products}">
+  <span th:text="${product.title}">|</span>
+  <span th:text="${product.price}"></span><b> грн.</b>
+  <a th:href="@{/product/{id}(id=${product.id})}">Детальніше...</a>
+</div>
+
+</body>
+</html>

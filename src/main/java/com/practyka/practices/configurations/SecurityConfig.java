@@ -22,7 +22,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/product/**","/images/**","/registration").permitAll()
+                        .requestMatchers("/", "/product/**","/images/**","/registration","/user/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

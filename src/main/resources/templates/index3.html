@@ -22,6 +22,8 @@
 <div th:if="${productList.isEmpty}">
     <div>Товар відсутній</div>
 </div>
+
+<!--Якщо не відсутній-->
 <div th:each="product :${productList}">
     <span th:text="${product.title}">|</span>
     <span th:text="${product.price}"></span><b> грн.</b>

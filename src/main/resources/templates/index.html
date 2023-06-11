@@ -144,7 +144,7 @@
 <!-- Список товарів -->
 <div th:each="product, index : ${productList}">
   <div class="product-tile">
-<!--    <img th:src="${isPreviewImage == 1 ? /images/{id}(id=${image.id}) : ''}" alt="">-->
+<!--    <img th:src="${image.isPreviewImage == 1 ? /images/{id}(id=${image.id}) : 'my_file'}" alt="">-->
     <div>
       <span class="product-title" th:text="${product.title}"></span>
       <br>
