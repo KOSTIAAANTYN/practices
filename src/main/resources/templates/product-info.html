@@ -3,12 +3,12 @@
 <head>
     <link style="">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Amazoffle</title>
 </head>
 <body>
-<h1>Вітаю на практиці!</h1>
+<h1>Amazoffle-product</h1>
 <hr>
-<h3>Iнформація про товар</h3>
+<h3>About:</h3>
 
 <div th:each="image : ${images}">
     <img th:src="@{/images/{id}(id=${image.id})}" height="100px">

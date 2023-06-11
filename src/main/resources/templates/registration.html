@@ -1,19 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Amazoffle - Реєстрація</title>
+  <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+        }
+
+        form {
+            width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #000;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #ffcc00;
+            color: #000;
+            cursor: pointer;
+            padding: 10px 10px;
+            font-size: 15px;
+            border-radius: 5px; /* Змінено властивість border-radius на 10px */
+        }
+    </style>
 </head>
 <body>
-<h1>Регістрація</h1>
+<h1>Реєстрація</h1>
 <form action="/registration" method="post">
-  Ім'я продавця:<input type="text"name="name"><br><br>
-  E-mail:<input type="email"name="email"><br><br>
-  Номер телефону:<input type="text"name="numberPhone"><br><br>
-  Пароль:<input type="password"name="password"><br><br>
+  <label for="name">Ім'я продавця:</label>
+  <input type="text" id="name" name="name" required><br><br>
 
-  <input type="submit"name="Зареєструватися">
+  <label for="email">E-mail:</label>
+  <input type="email" id="email" name="email" required><br><br>
+
+  <label for="numberPhone">Номер телефону:</label>
+  <input type="text" id="numberPhone" name="numberPhone" required><br><br>
+
+  <label for="password">Пароль:</label>
+  <input type="password" id="password" name="password" required><br><br>
+
+  <input type="submit" value="Зареєструватися">
 </form>
-
 </body>
 </html>

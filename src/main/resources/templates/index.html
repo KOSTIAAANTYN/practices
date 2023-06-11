@@ -1,50 +1,175 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Amazoffle</title>
+  <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffcc00;
+            margin-top: 0;
+        }
+
+        hr {
+            border-color: #fff;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 3px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"],
+        a.button {
+            background-color: #ffcc00;
+            color: #000;
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .product-tile {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .product-tile img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-right: 10px;
+            transition: transform 0.3s;
+        }
+
+        .product-tile:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-title {
+            font-weight: bold;
+            color: #ffcc00;
+        }
+
+        .product-price {
+            margin-left: auto;
+            color: #000;
+        }
+
+        .header-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        .header-title span {
+            color: #ffcc00;
+        }
+
+        .btn-details {
+            background-color: #ffcc00;
+            color: #000;
+            cursor: pointer;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        b1 {
+            color: #000;
+        }
+    </style>
 </head>
 <body>
-<h1>Сторінка з товарами</h1><hr><br>
+<div class="header-title">
+  <span>Amaz</span>
+  <span style="color: white;">offle</span>
+</div>
+<h1>Сторінка з товарами</h1>
+<hr><br>
+
 <div th:if="${user.email}">
-    <form action="/logout" method="post">
-        <input type="submit" value="Вийти">
-    </form>
-</div>
-<div th:unless="${user.email}">
-    <a href="/login">Увійти</a><hr>
-</div>
-<form th:action="@{/}" method="get">
-    Пошук товару по назві: <input type="text" name="title">
-    <input type="submit" value="Пошук">
-</form>
-<!--якщо товар відсутній-->
-<div th:if="${productList.isEmpty}">
-    <div>Товар відсутній</div>
-</div>
-<div th:each="product :${productList}">
-    <span th:text="${product.title}">|</span>
-    <span th:text="${product.price}"></span><b> грн.</b>
-    <a th:href="@{/product/{id}(id=${product.id})}">Детальніше...</a>
+  <form action="/logout" method="post">
+    <input type="submit" value="Вийти">
+  </form>
 </div>
 
+<div th:unless="${user.email}">
+  <a href="/login" class="button">Увійти</a>
+</div><br><br>
+
+<a href="/registration" class="button">Зареструватися</a>
+<hr>
+
+<form th:action="@{/}" method="get">
+  Пошук товару по назві: <input type="text" name="title">
+  <input type="submit" value="Пошук">
+</form>
+
+<!-- Якщо товар відсутній -->
+<div th:if="${productList.isEmpty}">
+  <div>Товар відсутній</div>
+</div>
+
+<!-- Список товарів -->
+<div th:each="product, index : ${productList}">
+  <div class="product-tile">
+<!--    <img th:src="${isPreviewImage == 1 ? /images/{id}(id=${image.id}) : ''}" alt="">-->
+    <div>
+      <span class="product-title" th:text="${product.title}"></span>
+      <br>
+      <span class="product-price" th:text="${product.price}"></span><b1> грн.</b1>
+      <a th:href="@{/product/{id}(id=${product.id})}" class="btn-details">Детальніше...</a>
+    </div>
+  </div>
+</div>
 
 <br><hr>
+
+<!-- Додати продукт -->
 <div th:if="${user.email}">
-    <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
-        Назва товару:<input type="text" name="title"><br><br>
-        Опис товару:<input type="text" name="description"><br><br>
-        Ціна товару:<input type="number" name="price"><br><br>
-        Місто товару:<input type="text" name="town"><br><br>
-        Фото 1:<input type="file" name="file1"><br>
-        Фото 2:<input type="file" name="file2"><br>
-        Фото 3:<input type="file" name="file3"><br>
+  <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
+    Назва товару: <input type="text" name="title"><br><br>
+    Опис товару: <input type="text" name="description"><br><br>
+    Ціна товару: <input type="number" name="price"><br><br>
+    Місто товару: <input type="text" name="town"><br><br>
+    Фото 1: <input type="file" name="file1"><br>
+    Фото 2: <input type="file" name="file2"><br>
+    Фото 3: <input type="file" name="file3"><br>
 
-        <input type="submit" value="Додати товар">
-
-    </form>
+    <input type="submit" value="Додати товар">
+  </form>
 </div>
 
-<a href="/registration">Зареструватися</a>
 </body>
 </html>

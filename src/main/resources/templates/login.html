@@ -2,19 +2,73 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Amazoffle - Увійти</title>
+    <style>
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+h1 {
+	text-align: center;
+	color: #ffcc00;
+}
+
+label {
+	display: block;
+	margin-bottom: 10px;
+	color: #000;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="submit"] {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 20px;
+	border: none;
+	border-radius: 3px;
+}
+
+input[type="submit"] {
+	background-color: #ffcc00;
+	color: #000;
+	cursor: pointer;
+}
+
+.error-message {
+    color: red;
+}
+    </style>
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
+<div class="container">
+    <h1>Увійти до Amaz<span style="color: black;">offle</span></h1>
+    <form th:action="@{/login}" method="post">
+        <div><label> Ваш e-mail : <input type="text" name="username"/> </label></div>
+        <div><label> Пароль: <input type="password" name="password"/> </label></div>
+        <div><input type="submit" value="Увійти"/></div>
+    </form>
+    <div th:if="${param.error}" class="error-message">
+        Invalid username and password.
+    </div>
+    <div th:if="${param.logout}" class="error-message">
+        You have been logged out.
+    </div>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> Ваш e-mail : <input type="text" name="username"/> </label></div>
-    <div><label> Пароль: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Увійти"/></div>
-</form>
+
 </body>
 </html>
