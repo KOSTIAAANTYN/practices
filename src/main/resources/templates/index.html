@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Amazoffle</title>
+
   <style>
         body {
             background-color: #000;
@@ -130,6 +131,10 @@
 
 <a href="/registration" class="button">Зареструватися</a>
 <hr>
+
+<div th:if="${user.isAdmin}">
+  <a href="/admin">Admins panel</a>
+</div>
 
 <form th:action="@{/}" method="get">
   Пошук товару по назві: <input type="text" name="title">

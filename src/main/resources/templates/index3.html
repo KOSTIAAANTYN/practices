@@ -14,6 +14,11 @@
 <div th:unless="${user.email}">
     <a href="/login">Увійти</a><hr>
 </div>
+
+<div th:if="${user.isAdmin}">
+<a href="/admin">Admins panel</a>
+</div>
+
 <form th:action="@{/}" method="get">
     Пошук товару по назві: <input type="text" name="title">
     <input type="submit" value="Пошук">
