@@ -17,8 +17,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     public boolean createUser(User user){
+        boolean result=false;
         if(userRepository.findUserByEmail(user.getEmail())!=null)
-            return false;
+            return result;
+        if(user.getEmail()==null){
+            return result;
+        }
         user.setActive(true);
         user.getRoles().add(Role.ROLE_USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));

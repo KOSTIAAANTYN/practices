@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Amazoffle</title>
+    <link rel="icon" type="image/png" href="/static/logo.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Сторінка з товарами</h1><hr><br>
+        <div th:if="${user.email}">
+            <form action="/logout" method="post">
+                <input type="submit" value="Вийти">
+            </form>
+        </div>
+        <div th:unless="${user.email}">
+            <a href="/login">Увійти</a><hr>
+        </div>
+
+        <div th:if="${user.isAdmin}">
+            <a href="/admin">Admins panel</a>
+        </div>
+
+        <form th:action="@{/}" method="get">
+            Пошук товару по назві: <input type="text" name="title">
+            <input type="submit" value="Пошук">
+        </form>
+        <!--якщо товар відсутній-->
+        <div th:if="${productList.isEmpty}">
+            <div>Товар відсутній</div>
+        </div>
+        <div th:unless="${productList.isEmpty}">
+        <div th:each="product:${productList}">
+            <div class="card">
+                <div class="card-body">
+                    <img th:src="@{/images/{id}(id=${product.previewImageId})}" height="100px">
+                    <h5 class="card-title" th:text="${product.title}"></h5>
+                    <p class="card-text" th:text="${product.price + ' грн.'}"></p>
+                    <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-primary">Детальніше...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <br><hr>
+        <div th:if="${user.email}">
+            <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
+                Назва товару:<input type="text" name="title"><br><br>
+                Опис товару:<input type="text" name="description"><br><br>
+                Ціна товару:<input type="number" name="price"><br><br>
+                Місто товару:<input type="text" name="town"><br><br>
+                Фото 1:<input type="file" name="file1"><br>
+                Фото 2:<input type="file" name="file2"><br>
+                Фото 3:<input type="file" name="file3"><br>
+
+                <input type="submit" value="Додати товар">
+
+            </form>
+        </div>
+
+        <a href="/registration">Зареструватися</a>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</body>
+</html>

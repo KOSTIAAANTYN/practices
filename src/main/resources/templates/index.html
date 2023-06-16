@@ -1,180 +1,210 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Amazoffle</title>
+    <meta charset="UTF-8">
+    <title>Amazoffle</title>
 
-  <style>
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
-        h1 {
-            text-align: center;
-            color: #ffcc00;
-            margin-top: 0;
-        }
+    <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
 
-        hr {
-            border-color: #fff;
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+    h1 {
+      text-align: center;
+      color: #ffcc00;
+      margin-top: 0;
+    }
 
-        form {
-            margin-bottom: 20px;
-        }
+    hr {
+      border-color: #fff;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
 
-        input[type="text"],
-        input[type="number"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 3px;
-        }
+    form {
+      margin-bottom: 20px;
+    }
 
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 3px;
+    }
 
-        input[type="submit"],
-        a.button {
-            background-color: #ffcc00;
-            color: #000;
-            cursor: pointer;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-        }
+    input[type="file"] {
+      margin-bottom: 10px;
+    }
 
-        .product-tile {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background-color: #fff;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
+    input[type="submit"],
+    a.button {
+      background-color: #ffcc00;
+      color: #000;
+      cursor: pointer;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s; /* Плавна анімація зміни кольорів */
+    }
 
-        .product-tile img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            margin-right: 10px;
-            transition: transform 0.3s;
-        }
+    input[type="submit"]:hover,
+    a.button:hover {
+      background-color: #000;
+      color: #ffcc00;
+    }
 
-        .product-tile:hover img {
-            transform: scale(1.1);
-        }
+    .product-tile {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background-color: #fff;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
 
-        .product-title {
-            font-weight: bold;
-            color: #ffcc00;
-        }
+    .product-tile img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      margin-right: 10px;
+      transition: transform 0.3s;
+    }
 
-        .product-price {
-            margin-left: auto;
-            color: #000;
-        }
+    .product-tile:hover img {
+      transform: scale(1.1);
+    }
 
-        .header-title {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-        }
+    .product-title {
+      font-weight: bold;
+      color: #ffcc00;
+    }
 
-        .header-title span {
-            color: #ffcc00;
-        }
+    .product-price {
+      margin-left: auto;
+      color: #000;
+    }
 
-        .btn-details {
-            background-color: #ffcc00;
-            color: #000;
-            cursor: pointer;
-            padding: 5px 10px;
-            font-size: 14px;
-            border: none;
-            border-radius: 3px;
-            text-decoration: none;
-        }
+    .header-title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+    }
 
-        b1 {
-            color: #000;
-        }
+    .header-title span {
+      color: #ffcc00;
+    }
+    .btn-details {
+      background-color: #ffcc00;
+      color: #000;
+      cursor: pointer;
+      padding: 8px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .btn-details:hover {
+      background-color: #000;
+      color: #ffcc00;
+    }
+
+    b1 {
+      color: #000;
+    }
+
     </style>
 </head>
 <body>
-<div class="header-title">
-  <span>Amaz</span>
-  <span style="color: white;">offle</span>
-</div>
-<h1>Сторінка з товарами</h1>
-<hr><br>
-
-<div th:if="${user.email}">
-  <form action="/logout" method="post">
-    <input type="submit" value="Вийти">
-  </form>
-</div>
-
-<div th:unless="${user.email}">
-  <a href="/login" class="button">Увійти</a>
-</div><br><br>
-
-<a href="/registration" class="button">Зареструватися</a>
-<hr>
-
-<div th:if="${user.isAdmin}">
-  <a href="/admin">Admins panel</a>
-</div>
-
-<form th:action="@{/}" method="get">
-  Пошук товару по назві: <input type="text" name="title">
-  <input type="submit" value="Пошук">
-</form>
-
-<!-- Якщо товар відсутній -->
-<div th:if="${productList.isEmpty}">
-  <div>Товар відсутній</div>
-</div>
-
-<!-- Список товарів -->
-<div th:each="product, index : ${productList}">
-  <div class="product-tile">
-<!--    <img th:src="${image.isPreviewImage == 1 ? /images/{id}(id=${image.id}) : 'my_file'}" alt="">-->
-    <div>
-      <span class="product-title" th:text="${product.title}"></span>
-      <br>
-      <span class="product-price" th:text="${product.price}"></span><b1> грн.</b1>
-      <a th:href="@{/product/{id}(id=${product.id})}" class="btn-details">Детальніше...</a>
+<div class="container">
+    <div class="header-title">
+        <span>Amaz</span>
+        <span style="color: white;">offle</span>
     </div>
-  </div>
+    <h1>Сторінка з товарами</h1>
+    <hr>
+    <br>
+
+    <div th:if="${user.email}">
+        <form action="/logout" method="post">
+            <input type="submit" value="Вийти" class="btn btn-primary">
+        </form>
+    </div>
+
+    <div th:unless="${user.email}">
+        <a href="/login" class="button btn btn-primary">Увійти</a>
+    </div>
+    <br><br>
+
+    <a href="/registration" class="button btn btn-primary">Зареструватися</a>
+    <hr>
+
+    <div th:if="${user.isAdmin}">
+        <a href="/admin" class="btn btn-primary">Admins panel</a>
+    </div>
+
+    <form th:action="@{/}" method="get">
+        Пошук товару по назві: <input type="text" name="title">
+        <input type="submit" value="Пошук" class="btn btn-primary">
+    </form>
+
+    <!-- Якщо товар відсутній -->
+    <div th:if="${productList.isEmpty}">
+        <div>Товар відсутній</div>
+    </div>
+    <div th:unless="${productList.isEmpty}">
+        <div class="d-flex flex-wrap"> <!-- Додав класи d-flex та flex-wrap -->
+            <div th:each="product:${productList}">
+                <div class="product-tile">
+                    <div class="card">
+                        <div class="card-body">
+                            <img th:src="@{/images/{id}(id=${product.previewImageId})}" height="100px">
+                            <h5 class="card-title" th:text="${product.title}"></h5>
+                            <p class="card-text" th:text="${product.price + ' грн.'}"></p>
+                            <a th:href="@{/product/{id}(id=${product.id})}" class="btn-details">Детальніше...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+
+    <!-- Додати продукт -->
+    <div th:if="${user.email}">
+        <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
+            Назва товару: <input type="text" name="title" class="form-control"><br><br>
+            Опис товару: <input type="text" name="description" class="form-control"><br><br>
+            Ціна товару: <input type="number" name="price" class="form-control"><br><br>
+            Місто товару: <input type="text" name="town" class="form-control"><br><br>
+            Фото 1: <input type="file" name="file1" class="form-control"><br>
+            Фото 2: <input type="file" name="file2" class="form-control"><br>
+            Фото 3: <input type="file" name="file3" class="form-control"><br>
+
+            <input type="submit" value="Додати товар" class="btn btn-primary">
+        </form>
+    </div>
 </div>
 
-<br><hr>
-
-<!-- Додати продукт -->
-<div th:if="${user.email}">
-  <form th:action="@{/product/create}" method="post" enctype="multipart/form-data">
-    Назва товару: <input type="text" name="title"><br><br>
-    Опис товару: <input type="text" name="description"><br><br>
-    Ціна товару: <input type="number" name="price"><br><br>
-    Місто товару: <input type="text" name="town"><br><br>
-    Фото 1: <input type="file" name="file1"><br>
-    Фото 2: <input type="file" name="file2"><br>
-    Фото 3: <input type="file" name="file3"><br>
-
-    <input type="submit" value="Додати товар">
-  </form>
-</div>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

@@ -19,6 +19,7 @@ public class ProductController {
                               Principal principal){
         model.addAttribute("productList", productService.getProductList(title));
         model.addAttribute("user", productService.getUserByPrincipal(principal));
+//        model.addAttribute("images",productService.getProductById().
         return "index";
     }
     @GetMapping("/product/{id}")
