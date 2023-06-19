@@ -2,11 +2,65 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Amazoffle:admins panel</title>
+  <title>Amazoffle: Admins Panel</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #000;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(45deg, #ffcc00, #ff0000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h4 {
+      background: linear-gradient(45deg, #ffcc00, #ff0000);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    th,
+    td {
+      color: #ffcc00;
+    }
+
+    .btn-details {
+      background-color: #ffcc00;
+      color: #000;
+      transition: background-color 0.3s;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    .btn-details:hover {
+      background-color: #000;
+      color: #00f;
+    }
+
+    .btn-ban {
+      background-color: #ffcc00;
+      color: #000;
+      transition: background-color 0.3s;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    .btn-ban:hover {
+      background-color: #ff0000;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-<h4>Admins panel</h4>
-<table border="1">
+<h4 class="gradient-bg">Admins Panel</h4>
+<table class="table table-bordered">
+  <thead>
   <tr>
     <th>Email</th>
     <th>Телефон</th>
@@ -15,20 +69,27 @@
     <th>Бан</th>
     <th>Детальніше</th>
   </tr>
-
+  </thead>
+  <tbody>
   <tr th:each="user:${users}">
-    <td th:text="${user.email}"/>
-    <td th:text="${user.numberPhone}"/>
-    <td th:text="${user.active}? 'ACTIVE':'RETIRED'"/>
-    <td th:text="${user.roles}"/>
+    <td th:text="${user.email}"></td>
+    <td th:text="${user.numberPhone}"></td>
+    <td th:text="${user.active}? 'ACTIVE':'RETIRED'"></td>
+    <td th:text="${user.roles}"></td>
     <td>
       <form th:action="@{/admin/user/ban/{id}(id=${user.id})}" method="post">
-        <input type="submit" value="Ban">
+        <button type="submit" class="btn btn-ban">Ban</button>
       </form>
     </td>
-    <td><a th:href="@{/user/{id}(id=${user.id})}">Детально</a> </td>
+    <td><a th:href="@{/user/{id}(id=${user.id})}" class="btn btn-details">Детально</a></td>
   </tr>
+  </tbody>
 </table>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
