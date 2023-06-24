@@ -3,13 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <title>Amazoffle:about [[${user.name}]]</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h4 {
+      text-align: center;
+      color: #ffcc00;
+      margin-top: 0;
+    }
+
+    b {
+      color: #ffcc00;
+    }
+
+    a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+    .btn-details {
+      background-color: #ffcc00;
+      color: #000;
+      transition: background-color 0.3s;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 4px;
+    }
+
+    .btn-details:hover {
+      background-color: #000;
+      color: #00f;
+    }
+  </style>
 </head>
 <body>
 <h4>Детальна інформація про користувача <i>[[${user.name}]]</i></h4>
 <b>Телефон:</b>[[${user.numberPhone}]]<br>
-<b>Email:</b>[[${user.email}]]<br>
+<b>Email:</b>[[${user.email}]]<br><br>
 
-<h4>Детальна інформація про користувача <i>[[${user.name}]]</i></h4>
 
 <div th:if="${products.isEmpty}">
   <div>Товар відсутній</div>
@@ -18,9 +55,14 @@
 <!--Якщо не відсутній-->
 <div th:each="product :${products}">
   <span th:text="${product.title}">|</span>
-  <span th:text="${product.price}"></span><b> грн.</b>
-  <a th:href="@{/product/{id}(id=${product.id})}">Детальніше...</a>
+  <span th:text="${product.price}"></span><b> грн.</b><br>
+  <a th:href="@{/product/{id}(id=${product.id})}" class="btn btn-details">Детальніше...</a><br>
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>
